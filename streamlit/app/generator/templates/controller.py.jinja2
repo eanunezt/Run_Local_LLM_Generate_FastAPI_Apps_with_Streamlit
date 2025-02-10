@@ -1,0 +1,34 @@
+from fastapi import APIRouter
+from src.{{package}}.service import {{ name }}Service
+
+
+router = APIRouter(prefix="/api/v1/{{ plural_name }}")
+
+
+service = {{ name }}Service()
+
+
+@router.get("/")
+def get_all():
+    return service.get_all()
+
+
+@router.get("/{id}")
+def get_by_id(id: str):
+    return service.get_by_id(id)
+
+
+@router.post("/")
+def create(data: dict):
+    return service.create(data)
+
+
+@router.put("/{id}")
+def update(id: str, data: dict):
+    return service.update(id, data)
+
+
+@router.delete("/{id}")
+def delete(id: str):
+    return service.delete(id)
+

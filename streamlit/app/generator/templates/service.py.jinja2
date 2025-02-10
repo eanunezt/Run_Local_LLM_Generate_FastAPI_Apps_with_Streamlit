@@ -1,0 +1,28 @@
+from src.{{package}}.repository import {{ name }}Repository
+from src.{{package}}.model import {{ name }}
+from src.database import get_db
+from sqlalchemy.orm import Session
+
+
+class {{ name }}Service:
+    def __init__(self):
+        self.db: Session = next(get_db())
+        self.repository = {{ name }}Repository(self.db)
+
+    def get_all(self):
+        return self.repository.get_all()
+
+    def get_by_id(self, id: str):
+        return self.repository.get_by_id(id)
+
+    def create(self, data: dict):
+        entity = {{ name }}(**data)
+        return self.repository.create(entity)
+
+    def update(self, id: str, data: dict):
+        return self.repository.update(id, data)
+
+    def delete(self, id: str):
+        return self.repository.delete(id)
+
+        

@@ -1,0 +1,46 @@
+services:
+  streamlitsrv:
+    container_name: streamlitsrv
+    build:
+      context: streamlit/
+      dockerfile: Dockerfile
+    image: streamlit
+    ports:
+      - "8501:8501"
+    networks:
+      - ollama_net
+    environment:
+      - MODEL_LLM=${MODEL_LLM}
+      - BASE_URL_SRV_LLM=${BASE_URL_SRV_LLM}
+      
+  ollamasrv:
+    build:
+      context: ollama/
+      dockerfile: Dockerfile
+    image: ollama-local
+    container_name: ollamasrv
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    entrypoint: ["/bin/bash", "-c", "/app/init_models.sh && ollama serve"]
+    networks:
+      - ollama_net
+    environment:
+      - OLLAMA_MODEL_DIR=/root/.ollama/models
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+        reservations:
+          memory: 8G
+    command: ["/bin/bash", "-c", "/app/init_models.sh && ollama serve"]
+    volumes:
+      - ./ollama/init_models.sh:/app/init_models.sh:ro
+      - ollama_datav:/root/.ollama
+
+volumes:
+  ollama_datav:
+
+networks:
+  ollama_net:
+    driver: bridge

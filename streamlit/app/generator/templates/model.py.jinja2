@@ -1,0 +1,11 @@
+from sqlalchemy import Column, String, Boolean, Date, Text
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class {{ name }}(Base):
+    __tablename__ = "{{ plural_name }}"
+    
+    {% for field in fields %}
+    {{ field.name }} = Column({{ sqlalchemy_map_type(field.type) }}, primary_key={{ field.primary_key|default(false) }})
+    {% endfor %}

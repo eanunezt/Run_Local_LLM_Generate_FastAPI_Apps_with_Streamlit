@@ -1,0 +1,8 @@
+altair
+pandas
+langchain
+streamlit
+langchain-ollama
+openai
+jinja2
+jinja2_strcase

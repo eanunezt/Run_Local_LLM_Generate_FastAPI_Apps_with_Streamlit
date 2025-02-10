@@ -1,0 +1,4 @@
+ollama/models/*
+ollama/id_*
+streamlit/**/*.pyc
+streamlit/generator/**/*.pyc

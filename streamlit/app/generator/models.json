@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Authority",
+        "plural_name": "authorities",
+        "package": "authority",
+        "fields": [
+            {
+                "name": "id",
+                "type": "uuid",
+                "primary_key": true
+            },
+            {
+                "name": "code",
+                "type": "string"
+            },
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "parent_uuid",
+                "type": "nullabel uuid"
+            }
+        ]
+    }
+]

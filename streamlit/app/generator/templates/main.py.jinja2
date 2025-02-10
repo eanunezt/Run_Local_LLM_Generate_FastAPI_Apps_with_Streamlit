@@ -1,0 +1,13 @@
+from fastapi import FastAPI
+{% for model in models %}from src.{{ model|get_package }}.controller import router as {{ model.name | to_snake }}_router
+{% endfor %}
+
+app = FastAPI()
+
+
+{% for model in models %}app.include_router({{ model.name | to_snake }}_router)
+{% endfor %}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
